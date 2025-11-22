@@ -1,4 +1,4 @@
-package com.ahmed.ecommerce.ecommerce.common.exceptions;
+package com.ahmed.ecommerce.ecommerce.exceptions;
 
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
