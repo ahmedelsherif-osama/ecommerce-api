@@ -1,12 +1,6 @@
 package com.ahmed.ecommerce.ecommerce.service;
 
-import com.ahmed.publisher.erp.dto.ProductDto;
-import com.ahmed.publisher.erp.service.ProductService;
-import com.ahmed.publisher.shop.dto.CartItemRequest;
-import com.ahmed.publisher.shop.dto.CreateShopOrderRequest;
-import com.ahmed.publisher.erp.dto.CreateOrderRequest;
-import com.ahmed.publisher.erp.dto.CreateOrderItemRequest;
-import com.ahmed.publisher.erp.dto.OrderDto;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
