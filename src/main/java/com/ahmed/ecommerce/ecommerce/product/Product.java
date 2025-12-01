@@ -1,7 +1,6 @@
 package com.ahmed.ecommerce.ecommerce.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +12,11 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Product {
+    @Id
+    @GeneratedValue
+    @Column(columnDefinition = "uuid")
     private UUID id;
+
     private String name;
     private BigDecimal price;
 }
