@@ -1,10 +1,8 @@
 package com.ahmed.ecommerce.ecommerce.product.dto;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
-public record ProductDto(
-        UUID id,
+public record CreateProductRequest(
         String name,
         BigDecimal price
 ) {
