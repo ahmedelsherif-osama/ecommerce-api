@@ -31,3 +31,53 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Maven target folder
+/target/
+
+# Maven Wrapper files (they can stay if you want, optional)
+/.mvn/wrapper/maven-wrapper.properties
+/mvnw
+/mvnw.cmd
+
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Spring Boot
+spring.log
+
+# Eclipse
+
+.settings/
+
+# NetBeans
+/build/
+
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# Node modules (if you add frontend later)
+node_modules/
+
+# Secret Files
+.env
+
+# Docker
+docker-compose.yml
+
+# Application Properties
+/src/main/resources/application.properties
+/src/main/resources/application-*.properties
+
