@@ -1,9 +1,9 @@
-package com.ahmed.ecommerce.ecommerce.customer;
+package com.ahmed.ecommerce.ecommerce.user;
 
-import com.ahmed.ecommerce.ecommerce.customer.dto.CreateCustomerRequest;
-import com.ahmed.ecommerce.ecommerce.customer.dto.CustomerDto;
-import com.ahmed.ecommerce.ecommerce.customer.dto.PatchCustomerRequest;
-import com.ahmed.ecommerce.ecommerce.customer.dto.UpdateCustomerRequest;
+import com.ahmed.ecommerce.ecommerce.user.dto.UserRegistrationRequest;
+import com.ahmed.ecommerce.ecommerce.user.dto.CustomerDto;
+import com.ahmed.ecommerce.ecommerce.user.dto.PatchCustomerRequest;
+import com.ahmed.ecommerce.ecommerce.user.dto.UpdateCustomerRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +24,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public CustomerDto create(@RequestBody CreateCustomerRequest request){
+    public CustomerDto create(@RequestBody UserRegistrationRequest request){
         return customerService.create(request);
     }
 

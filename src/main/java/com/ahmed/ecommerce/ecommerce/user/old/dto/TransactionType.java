@@ -1,4 +1,4 @@
-package com.ahmed.ecommerce.ecommerce.customer;
+package com.ahmed.ecommerce.ecommerce.user;
 
 public enum TransactionType {
     REFUND,

@@ -1,4 +1,4 @@
-package com.ahmed.ecommerce.ecommerce.customer;
+package com.ahmed.ecommerce.ecommerce.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "users")
 @Getter
 @Setter
-public class Customer {
+public class User {
     @Id
     @GeneratedValue
     @Column(columnDefinition = "uuid")
@@ -34,6 +34,9 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<PaymentMethod> paymentMethods;
+
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.CUSTOMER;
 
 
 }

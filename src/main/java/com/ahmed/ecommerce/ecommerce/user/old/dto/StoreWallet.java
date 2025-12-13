@@ -1,4 +1,4 @@
-package com.ahmed.ecommerce.ecommerce.customer;
+package com.ahmed.ecommerce.ecommerce.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class StoreWallet {
 
     @OneToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private User customer;
 
     @Version
     private Long version;

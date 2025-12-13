@@ -1,6 +1,6 @@
-package com.ahmed.ecommerce.ecommerce.customer.dto;
+package com.ahmed.ecommerce.ecommerce.user.dto;
 
-public record CreateCustomerRequest(
+public record UserRegistrationRequest(
         String firstName,
         String lastName,
         String email,

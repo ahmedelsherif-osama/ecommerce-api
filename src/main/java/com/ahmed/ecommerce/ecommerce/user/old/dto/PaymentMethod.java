@@ -1,4 +1,4 @@
-package com.ahmed.ecommerce.ecommerce.customer;
+package com.ahmed.ecommerce.ecommerce.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,5 +17,5 @@ public class PaymentMethod {
     private UUID id;
 
     @ManyToOne
-    private Customer customer;
+    private User customer;
 }
