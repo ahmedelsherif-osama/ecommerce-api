@@ -1,4 +1,4 @@
-package com.ahmed.ecommerce.ecommerce.user;
+package com.ahmed.ecommerce.ecommerce.user.old.dto;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,6 +27,6 @@ public class Address {
     private boolean isMainAddress;
 
     @ManyToOne()
-    private Customer customer;
+    private User user;
 
 }
