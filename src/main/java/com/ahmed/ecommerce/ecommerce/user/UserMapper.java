@@ -1,5 +1,10 @@
-package com.ahmed.ecommerce.ecommerce.user.old.dto;
+package com.ahmed.ecommerce.ecommerce.user;
 
+
+import com.ahmed.ecommerce.ecommerce.user.dto.PatchUserRequest;
+import com.ahmed.ecommerce.ecommerce.user.dto.UpdateUserRequest;
+import com.ahmed.ecommerce.ecommerce.user.dto.UserDto;
+import com.ahmed.ecommerce.ecommerce.user.dto.UserRegistrationRequest;
 
 public class UserMapper {
     public static User toEntity (UserRegistrationRequest request){

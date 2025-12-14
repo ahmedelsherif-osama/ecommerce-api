@@ -1,6 +1,6 @@
 package com.ahmed.ecommerce.ecommerce.cart;
 
-import com.ahmed.ecommerce.ecommerce.customer.Customer;
+import com.ahmed.ecommerce.ecommerce.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +22,7 @@ public class Cart {
 
     @OneToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private User user;
 
     @Enumerated(EnumType.STRING)
     private CartStatus status = CartStatus.ACTIVE;

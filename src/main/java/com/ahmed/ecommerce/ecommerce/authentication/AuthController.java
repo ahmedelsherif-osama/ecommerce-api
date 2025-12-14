@@ -1,9 +1,9 @@
 package com.ahmed.ecommerce.ecommerce.authentication;
 
 import com.ahmed.ecommerce.ecommerce.authentication.dtos.RefreshTokenRequest;
-import com.ahmed.ecommerce.ecommerce.user.old.dto.AuthResponse;
-import com.ahmed.ecommerce.ecommerce.user.old.dto.LoginRequest;
-import com.ahmed.ecommerce.ecommerce.user.old.dto.UserRegistrationRequest;
+import com.ahmed.ecommerce.ecommerce.user.dto.AuthResponse;
+import com.ahmed.ecommerce.ecommerce.user.dto.LoginRequest;
+import com.ahmed.ecommerce.ecommerce.user.dto.UserRegistrationRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
