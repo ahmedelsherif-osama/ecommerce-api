@@ -1,9 +1,4 @@
-package com.ahmed.ecommerce.ecommerce.user;
-
-import com.ahmed.ecommerce.ecommerce.user.dto.PatchUserRequest;
-import com.ahmed.ecommerce.ecommerce.user.dto.UpdateUserRequest;
-import com.ahmed.ecommerce.ecommerce.user.dto.UserDto;
-import com.ahmed.ecommerce.ecommerce.user.dto.UserRegistrationRequest;
+package com.ahmed.ecommerce.ecommerce.user.old.dto;
 
 
 public class UserMapper {
@@ -11,6 +6,8 @@ public class UserMapper {
         User customer = new User();
         customer.setFirstName(request.firstName());
         customer.setLastName(request.lastName());
+        customer.setEmail(request.email());
+        customer.setPassword(request.password());
         return  customer;
     }
 
