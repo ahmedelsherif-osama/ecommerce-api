@@ -1,7 +1,6 @@
 package com.ahmed.ecommerce.ecommerce.authentication;
 
 import com.ahmed.ecommerce.ecommerce.authentication.dtos.RefreshTokenRequest;
-import com.ahmed.ecommerce.ecommerce.authentication.old.AuthService;
 import com.ahmed.ecommerce.ecommerce.user.old.dto.AuthResponse;
 import com.ahmed.ecommerce.ecommerce.user.old.dto.LoginRequest;
 import com.ahmed.ecommerce.ecommerce.user.old.dto.UserRegistrationRequest;
