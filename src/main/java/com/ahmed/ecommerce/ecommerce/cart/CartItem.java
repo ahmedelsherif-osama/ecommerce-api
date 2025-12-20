@@ -1,6 +1,6 @@
 package com.ahmed.ecommerce.ecommerce.cart;
 
-import com.ahmed.ecommerce.ecommerce.product.Product;
+import com.ahmed.ecommerce.ecommerce.product.Variant;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "cart_items")
+@Table(name = "cart_items",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"cart_id", "variant_id"})
+        })
 @Getter
 @Setter
 public class CartItem {
@@ -24,8 +27,8 @@ public class CartItem {
     private Cart cart;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @JoinColumn(name = "variant_id")
+    private Variant variant;
 
     private int quantity;
     private BigDecimal unitPrice;
