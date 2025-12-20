@@ -3,18 +3,18 @@ package com.ahmed.ecommerce.ecommerce.cart;
 import com.ahmed.ecommerce.ecommerce.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "carts")
 @Getter
-@Setter
 public class Cart {
+
     @Id
     @GeneratedValue
     @Column(columnDefinition = "uuid")
@@ -30,6 +30,60 @@ public class Cart {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> items = new ArrayList<>();
+
+    private BigDecimal totalPrice = BigDecimal.ZERO;
+    private String currency = "EGP";
+
+    // ----------------------------
+    // JPA requirement
+    // ----------------------------
+    protected Cart() {}
+
+    public Cart(User user) {
+        this.user = user;
+    }
+
+    // ----------------------------
+    // Controlled mutations
+    // ----------------------------
+    void addItem(CartItem item) {
+        items.add(item);
+    }
+
+    void removeItem(CartItem item) {
+        items.remove(item);
+    }
+
+    public void markCheckedOut() {
+        this.status = CartStatus.CHECKED_OUT;
+    }
+
+    public void markAbandoned() {
+        this.status = CartStatus.ABANDONED;
+    }
+
+    // ----------------------------
+    // Total calculation (private)
+    // ----------------------------
+    void calculateTotal() {
+        if (items.isEmpty()) {
+            this.totalPrice = BigDecimal.ZERO;
+            return;
+        }
+
+        this.totalPrice = items.stream()
+                .map(item -> {
+                    item.updateSubtotal();
+                    return item.getSubtotal();
+                })
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    // ----------------------------
+    // Lifecycle hooks
+    // ----------------------------
     @PrePersist
     void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -40,14 +94,4 @@ public class Cart {
     void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    private List<CartItem> items;
-
-    private BigDecimal totalPrice;
-    private String currency="EGP";
-
-
-
-
 }
