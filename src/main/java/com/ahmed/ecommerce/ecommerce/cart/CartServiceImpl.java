@@ -105,4 +105,9 @@ public class CartServiceImpl implements CartService {
         return order;
     }
 
+    private Cart getOrCreateActiveCartEntity(UUID userId) {
+        return cartRepository.getCartByUserId(userId)
+                .orElseGet(() -> cartRepository.create(userId));
+    }
+
 }
