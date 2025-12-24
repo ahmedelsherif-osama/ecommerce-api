@@ -1,7 +1,9 @@
 package com.ahmed.ecommerce.ecommerce.cart;
 
 import com.ahmed.ecommerce.ecommerce.cart.dto.CartResponse;
-import com.ahmed.ecommerce.ecommerce.user.PaymentMethod;
+import com.ahmed.ecommerce.ecommerce.order.OrderResponse;
+import com.ahmed.ecommerce.ecommerce.order.OrderService;
+import com.ahmed.ecommerce.ecommerce.payment.PaymentService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,10 +12,10 @@ import java.util.UUID;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CartServiceImpl implements CartService {
-    private PaymentService paymentService;
-    private CartItemService cartItemService;
-    private OrderService orderService;
-    private CartRepository cartRepository;
+    private final PaymentService paymentService;
+    private final CartItemService cartItemService;
+    private final OrderService orderService;
+    private final CartRepository cartRepository;
 
     public CartServiceImpl(PaymentService paymentService,
                            CartItemService cartItemService,
@@ -80,7 +82,7 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public Order checkout(UUID userId, PaymentMethod method) {
+    public OrderResponse checkout(UUID userId, UUID paymentMethodId) {
         Cart cart = getOrCreateActiveCartEntity(userId);
 
         if (cart.getItems() == null || cart.getItems().isEmpty()) {
@@ -88,10 +90,10 @@ public class CartServiceImpl implements CartService {
         }
 
         // 1. Charge payment (external side-effect)
-        paymentService.pay(cart, method);
+        paymentService.processPayment(cart, paymentMethodId, userId);
 
         // 2. Create order from cart
-        Order order = orderService.createFromCart(cart);
+        OrderResponse order = orderService.createFromCart(cart);
 
         // 3. Finalize cart
         cartItemService.clear(cart);

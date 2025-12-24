@@ -1,12 +1,15 @@
 package com.ahmed.ecommerce.ecommerce.cart;
 
 import com.ahmed.ecommerce.ecommerce.product.Variant;
+import com.ahmed.ecommerce.ecommerce.product.VariantRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class CartItemServiceImpl implements CartItemService {
 
     private final VariantRepository variantRepository;

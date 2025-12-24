@@ -2,7 +2,9 @@ package com.ahmed.ecommerce.ecommerce.cart;
 
 
 import com.ahmed.ecommerce.ecommerce.cart.dto.CartResponse;
-import com.ahmed.ecommerce.ecommerce.user.PaymentMethod;
+import com.ahmed.ecommerce.ecommerce.order.Order;
+import com.ahmed.ecommerce.ecommerce.order.OrderResponse;
+import com.ahmed.ecommerce.ecommerce.payment.PaymentMethodEntity;
 
 import java.util.UUID;
 
@@ -18,5 +20,5 @@ public interface CartService {
 
     void clearCart(UUID userId);
 
-    Order checkout(UUID userId, PaymentMethod method);
+    OrderResponse checkout(UUID userId, UUID paymentMethodId);
 }
