@@ -1,5 +1,6 @@
 package com.ahmed.ecommerce.ecommerce.user;
 
+import com.ahmed.ecommerce.ecommerce.payment.PaymentMethodEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,8 +33,8 @@ public class User {
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private StoreWallet wallet;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<PaymentMethod> paymentMethods;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<PaymentMethodEntity> paymentMethods;
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.CUSTOMER;
