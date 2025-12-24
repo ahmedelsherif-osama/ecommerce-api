@@ -7,6 +7,7 @@ import com.ahmed.ecommerce.ecommerce.product.dto.PatchProductRequest;
 import com.ahmed.ecommerce.ecommerce.product.dto.ProductDto;
 import com.ahmed.ecommerce.ecommerce.product.dto.UpdateProductRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,8 +15,10 @@ import java.util.UUID;
 @Service
 public class ProductServiceImpl implements ProductService{
     private final ProductRepository productRepository;
-    public ProductServiceImpl(ProductRepository productRepository){
+    private final VariantService variantService;
+    public ProductServiceImpl(ProductRepository productRepository, VariantService variantService){
         this.productRepository=productRepository;
+        this.variantService=variantService;
     }
 
     @Override
@@ -30,10 +33,24 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    @Transactional
     public ProductDto create(CreateProductRequest request) {
-        return ProductMapper.toDto(productRepository.save(ProductMapper.toEntity(request)));
-    }
+        if (request.variants() == null || request.variants().isEmpty()) {
+            throw new IllegalArgumentException("A product must have at least one variant with a price");
+        }
 
+        Product product = productRepository.save(ProductMapper.toEntity(request));
+
+        product.setName(request.name());
+        product.setDescription(request.description());
+
+        request.variants().forEach(v -> {
+                Variant variant = variantService.create(product, v);
+                product.getVariants().add(variant); // attach to product
+                    }
+                );
+        return ProductMapper.toDto(product);
+    }
     @Override
     public ProductDto updateFully(UUID productId, UpdateProductRequest request) {
         Product existing = productRepository.findById(productId).orElseThrow(()->new ProductNotFoundException(productId));
