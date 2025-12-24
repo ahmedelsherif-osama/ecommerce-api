@@ -1,14 +1,16 @@
 package com.ahmed.ecommerce.ecommerce.product;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import lombok.Generated;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@Getter
+@Setter
 @Entity
 public class Variant {
     @Id
@@ -19,7 +21,7 @@ public class Variant {
     private Product product;
 
     private BigDecimal price;
-    private BigDecimal discountPrice; // nullable
+    private BigDecimal discountedPrice; // nullable
     private int stockCount;
 
     private String sku;
