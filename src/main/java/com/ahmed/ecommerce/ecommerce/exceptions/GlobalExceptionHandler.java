@@ -1,11 +1,13 @@
 package com.ahmed.ecommerce.ecommerce.exceptions;
 
+import com.ahmed.ecommerce.ecommerce.exceptions.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
@@ -47,5 +49,14 @@ public class GlobalExceptionHandler {
                 .body(new CustomErrorResponse("Internal Sever Error",   LocalDateTime.now(),
                         request.getRequestURI() ));
 
+    }
+
+    @ExceptionHandler(OutOfStockException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleOutOfStock(OutOfStockException ex) {
+        return new ErrorResponse(
+                "OUT_OF_STOCK",
+                ex.getMessage()
+        );
     }
 }

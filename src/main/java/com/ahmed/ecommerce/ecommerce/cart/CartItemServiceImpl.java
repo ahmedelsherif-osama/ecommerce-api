@@ -1,5 +1,6 @@
 package com.ahmed.ecommerce.ecommerce.cart;
 
+import com.ahmed.ecommerce.ecommerce.inventory.InventoryAvailabilityService;
 import com.ahmed.ecommerce.ecommerce.product.Variant;
 import com.ahmed.ecommerce.ecommerce.product.VariantRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,21 +15,23 @@ public class CartItemServiceImpl implements CartItemService {
 
     private final VariantRepository variantRepository;
     private final CartItemRepository cartItemRepository;
+    private final InventoryAvailabilityService inventoryAvailabilityService;
 
     public CartItemServiceImpl(
             VariantRepository variantRepository,
-            CartItemRepository cartItemRepository
+            CartItemRepository cartItemRepository,
+            InventoryAvailabilityService inventoryAvailabilityService
     ) {
         this.variantRepository = variantRepository;
         this.cartItemRepository = cartItemRepository;
+        this.inventoryAvailabilityService = inventoryAvailabilityService;
     }
 
     @Override
     public void add(Cart cart, UUID variantId, int quantity) {
         Variant variant = getVariantOrThrow(variantId);
 
-        validateStock(variant, quantity);
-
+        inventoryAvailabilityService.assertAvailable(variantId, quantity);
         CartItem item = cartItemRepository
                 .findByCartAndVariant(cart, variant)
                 .orElseGet(() -> createNewItem(cart, variant));
@@ -50,7 +53,7 @@ public class CartItemServiceImpl implements CartItemService {
             return;
         }
 
-        validateStock(variant, quantity);
+        inventoryAvailabilityService.assertAvailable(variantId, quantity);
 
         CartItem item = cartItemRepository
                 .findByCartAndVariant(cart, variant)
@@ -91,11 +94,7 @@ public class CartItemServiceImpl implements CartItemService {
                 );
     }
 
-    private void validateStock(Variant variant, int quantity) {
-        if (variant.getStockCount() < quantity) {
-            throw new IllegalStateException("Insufficient stock");
-        }
-    }
+
 
     private CartItem createNewItem(Cart cart, Variant variant) {
         CartItem item = new CartItem();
